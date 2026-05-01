@@ -50,7 +50,7 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 className="text-slate-600 hover:text-blue-600 transition-colors font-medium"
               >
-                prototipoo
+                Prototipo
               </a>
               <button
                 onClick={() => setIsModalOpen(true)}
