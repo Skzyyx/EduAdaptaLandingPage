@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Compartir reporte</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#FBF7F2;--orange:#E8611A;--orange-light:#F9D4B8;--green:#2A6049;--green-light:#C8E6DA;--whatsapp:#25D366;--text:#1A1208;--text-mid:#5C4A2A;--text-soft:#9C8060;--white:#FFFFFF}
+html,body{width:390px;height:844px;overflow:hidden;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif}
+.screen{width:390px;height:844px;display:flex;flex-direction:column;overflow-y:auto;background:var(--bg)}
+.header{padding:52px 28px 16px;background:white;border-bottom:1px solid rgba(0,0,0,0.06);flex-shrink:0;display:flex;align-items:center;gap:12px}
+.back-btn{width:38px;height:38px;border-radius:11px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.header-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--text);flex:1}
+.content{padding:18px 28px 14px;flex:1}
+.preview-card{background:white;border-radius:18px;padding:18px;border:1.5px solid rgba(0,0,0,0.06);margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.pdf-thumb{width:60px;height:78px;background:linear-gradient(135deg,#FFF 0%,#F5F1EC 100%);border-radius:8px;border:1.5px solid rgba(0,0,0,0.08);position:relative;flex-shrink:0;overflow:hidden}
+.pdf-thumb::before{content:'PDF';position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;color:var(--orange);letter-spacing:0.04em}
+.pdf-thumb::after{content:'';position:absolute;top:24px;left:8px;right:8px;height:2px;background:rgba(0,0,0,0.1);border-radius:1px;box-shadow:0 6px 0 rgba(0,0,0,0.06),0 12px 0 rgba(0,0,0,0.06),0 18px 0 rgba(0,0,0,0.06),0 24px 0 rgba(0,0,0,0.06),0 30px 0 rgba(0,0,0,0.06),0 36px 0 rgba(0,0,0,0.06)}
+.preview-info{flex:1;min-width:0}
+.preview-title{font-family:'Fraunces',serif;font-size:14.5px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3}
+.preview-meta{font-size:11.5px;color:var(--text-soft);font-weight:500;margin-bottom:8px}
+.preview-tags{display:flex;gap:6px}
+.preview-tag{font-size:10px;font-weight:700;padding:3px 7px;border-radius:5px;letter-spacing:0.04em}
+.tag-light{background:var(--green-light);color:var(--green)}
+.tag-week{background:var(--orange-light);color:var(--orange)}
+.section-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-soft);margin-bottom:12px;padding-left:2px}
+.share-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+.share-btn{display:flex;align-items:center;gap:11px;padding:13px 12px;border-radius:14px;border:1.5px solid rgba(0,0,0,0.07);background:white;cursor:pointer;font-family:inherit;text-align:left;transition:transform .12s}
+.share-btn:active{transform:scale(0.97)}
+.share-btn.primary{background:var(--whatsapp);border-color:var(--whatsapp);color:white}
+.share-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.share-btn:not(.primary) .share-icon{background:var(--bg)}
+.share-btn.primary .share-icon{background:rgba(255,255,255,0.2)}
+.share-text{flex:1;min-width:0}
+.share-name{font-size:13px;font-weight:700;line-height:1.2;display:block}
+.share-sub{font-size:10.5px;font-weight:500;line-height:1.3;display:block;opacity:0.7;margin-top:2px}
+.recipients-card{background:white;border-radius:18px;padding:4px 0;border:1.5px solid rgba(0,0,0,0.06);margin-bottom:14px}
+.recip-item{display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;border-bottom:1px solid rgba(0,0,0,0.04)}
+.recip-item:last-child{border-bottom:none}
+.recip-avatar{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'Fraunces',serif;flex-shrink:0;color:white}
+.recip-info{flex:1;min-width:0}
+.recip-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:1px}
+.recip-phone{font-size:11px;color:var(--text-soft);font-weight:500}
+.checkbox{width:22px;height:22px;border-radius:7px;border:2px solid rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:white}
+.checkbox.checked{background:var(--whatsapp);border-color:var(--whatsapp)}
+.checkbox.checked::after{content:'✓';color:white;font-size:13px;font-weight:700;line-height:1}
+.tip-card{background:var(--green-light);border-radius:14px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start}
+.tip-icon{font-size:18px;flex-shrink:0;line-height:1}
+.tip-text{font-size:11.5px;color:var(--green);line-height:1.5;font-weight:500}
+.tip-text strong{font-weight:700}
+.bottom-bar{margin-top:auto;background:white;border-top:1px solid rgba(0,0,0,0.06);padding:14px 28px 36px;flex-shrink:0}
+.btn-primary{display:flex;width:100%;background:var(--whatsapp);color:white;font-family:inherit;font-size:14.5px;font-weight:700;padding:15px 20px;border-radius:14px;border:none;cursor:pointer;justify-content:center;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(37,211,102,0.3)}
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="header">
+    <button class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <h1 class="header-title">Compartir reporte</h1>
+  </div>
+  <div class="content">
+    <div class="preview-card">
+      <div class="pdf-thumb"></div>
+      <div class="preview-info">
+        <div class="preview-title">Reporte semanal · 3° A</div>
+        <div class="preview-meta">18 alumnos · Generado hoy</div>
+        <div class="preview-tags"><span class="preview-tag tag-light">87 KB</span><span class="preview-tag tag-week">Semana 12</span></div>
+      </div>
+    </div>
+    <p class="section-title">Compartir vía</p>
+    <div class="share-grid">
+      <button class="share-btn primary"><div class="share-icon">💬</div><div class="share-text"><span class="share-name">WhatsApp</span><span class="share-sub">A padres y tutores</span></div></button>
+      <button class="share-btn"><div class="share-icon">💾</div><div class="share-text"><span class="share-name">Guardar PDF</span><span class="share-sub">En el dispositivo</span></div></button>
+      <button class="share-btn"><div class="share-icon">📩</div><div class="share-text"><span class="share-name">SMS</span><span class="share-sub">Solo resumen</span></div></button>
+      <button class="share-btn"><div class="share-icon">🖨️</div><div class="share-text"><span class="share-name">Imprimir</span><span class="share-sub">Tablet conectada</span></div></button>
+    </div>
+    <p class="section-title">Enviar a</p>
+    <div class="recipients-card">
+      <div class="recip-item"><div class="recip-avatar" style="background:var(--orange);">RR</div><div class="recip-info"><div class="recip-name">Rosa Rodríguez (mamá)</div><div class="recip-phone">+52 555 132 4080</div></div><div class="checkbox checked"></div></div>
+      <div class="recip-item"><div class="recip-avatar" style="background:var(--green);">JR</div><div class="recip-info"><div class="recip-name">Javier Rodríguez (papá)</div><div class="recip-phone">+52 555 870 2241</div></div><div class="checkbox checked"></div></div>
+      <div class="recip-item"><div class="recip-avatar" style="background:#5B4B8A;">CL</div><div class="recip-info"><div class="recip-name">Claudia López (tutora)</div><div class="recip-phone">+52 555 219 6644</div></div><div class="checkbox"></div></div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">📡</span>
+      <p class="tip-text"><strong>Tamaño optimizado: &lt;100 KB.</strong> Cuando llegues a una zona con señal —subiendo al cerro, llegando al pueblo o de regreso a casa— los archivos se envían aunque la red sea débil.</p>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn-primary">Enviar a 2 contactos por WhatsApp →</button>
+  </div>
+</div>
+</body>
+</html>

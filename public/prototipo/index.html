@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="/prototipo/">
+<title>EduAdapta · Prototipo interactivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;background:#0F1320;color:#fff;min-height:100vh;display:flex;flex-direction:column}
+.topbar{padding:14px 20px;background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:15px}
+.brand span{color:#E8611A}
+.share-tip{font-size:11px;color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.05);padding:5px 10px;border-radius:10px}
+.topbar-meta{color:rgba(255,255,255,0.5);font-size:12px;margin-left:auto}
+.layout{display:grid;grid-template-columns:300px 1fr;flex:1;min-height:0}
+.sidebar{background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.08);overflow-y:auto;padding-bottom:24px}
+.sidebar-section{padding:16px 20px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4)}
+.screen-link{display:flex;align-items:center;gap:12px;padding:10px 20px;cursor:pointer;color:rgba(255,255,255,0.75);font-size:13.5px;border-left:3px solid transparent;transition:background .15s;text-decoration:none}
+.screen-link:hover{background:rgba(255,255,255,0.05)}
+.screen-link.active{background:rgba(232,97,26,0.12);color:#fff;border-left-color:#E8611A}
+.screen-num{width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.screen-link.active .screen-num{background:#E8611A;color:#fff}
+.screen-link.new::after{content:'NUEVO';margin-left:auto;font-size:9px;font-weight:700;background:#F5C842;color:#1A1208;padding:2px 6px;border-radius:4px;letter-spacing:0.04em}
+.stage{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:28px 24px;overflow-y:auto}
+.phone-frame{width:422px;height:876px;background:#1A1F2E;border-radius:48px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);position:relative;flex-shrink:0}
+.phone-frame::before{content:'';position:absolute;top:24px;left:50%;transform:translateX(-50%);width:110px;height:28px;background:#0F1320;border-radius:20px;z-index:2}
+.phone-screen{width:100%;height:100%;border-radius:36px;overflow:hidden;background:#FBF7F2;position:relative}
+.phone-screen iframe{width:390px;height:844px;border:none;display:block}
+.controls{margin-top:20px;display:flex;align-items:center;gap:14px}
+.ctrl-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:#fff;font-size:20px;cursor:pointer;transition:background .15s;font-family:inherit;line-height:1}
+.ctrl-btn:hover:not(:disabled){background:rgba(255,255,255,0.15)}
+.ctrl-btn:disabled{opacity:0.3;cursor:not-allowed}
+.ctrl-counter{font-size:13px;color:rgba(255,255,255,0.7);min-width:80px;text-align:center;font-weight:600}
+.screen-title{margin-top:14px;font-size:13px;color:rgba(255,255,255,0.6);text-align:center}
+@media (max-width:880px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .stage{padding:12px}
+  .phone-frame{width:100%;max-width:422px;height:auto;aspect-ratio:422/876;padding:12px}
+  .phone-frame::before{width:80px;height:20px;top:16px}
+  .phone-screen iframe{width:100%;height:100%}
+  .topbar-meta{display:none}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">Edu<span>Adapta</span> · Prototipo</div>
+  <span class="share-tip">↔ Usa las flechas del teclado para navegar</span>
+  <div class="topbar-meta">12 pantallas · 100% offline · v1</div>
+</div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-section">Onboarding</div>
+    <a class="screen-link" data-src="01-splash.html" data-title="Splash / Bienvenida"><span class="screen-num">1</span>Splash / Bienvenida</a>
+    <a class="screen-link" data-src="02-login.html" data-title="Selección de perfil"><span class="screen-num">2</span>Selección de perfil</a>
+    <div class="sidebar-section">Diagnóstico inicial</div>
+    <a class="screen-link" data-src="03-diagnostico.html" data-title="Intro diagnóstico"><span class="screen-num">3</span>Intro diagnóstico</a>
+    <a class="screen-link" data-src="04-pregunta.html" data-title="Pregunta de lectura"><span class="screen-num">4</span>Pregunta de lectura</a>
+    <div class="sidebar-section">Vista alumno</div>
+    <a class="screen-link" data-src="05-dashboard-alumno.html" data-title="Dashboard alumno"><span class="screen-num">5</span>Dashboard alumno</a>
+    <a class="screen-link" data-src="06-lectura.html" data-title="Módulo de lectura"><span class="screen-num">6</span>Módulo de lectura</a>
+    <div class="sidebar-section">Vista docente</div>
+    <a class="screen-link new" data-src="07-dashboard-docente.html" data-title="Dashboard docente · Semáforo"><span class="screen-num">7</span>Dashboard + semáforo</a>
+    <a class="screen-link" data-src="08-reporte.html" data-title="Reporte de progreso"><span class="screen-num">8</span>Reporte de progreso</a>
+    <a class="screen-link new" data-src="09-exportar.html" data-title="Exportar a PDF / WhatsApp"><span class="screen-num">9</span>Exportar PDF/WhatsApp</a>
+    <div class="sidebar-section">Configuración</div>
+    <a class="screen-link new" data-src="10-config.html" data-title="Modo Lite + Alto contraste"><span class="screen-num">10</span>Modo Lite + Contraste</a>
+    <a class="screen-link new" data-src="11-sync.html" data-title="Sincronizar Bluetooth / USB"><span class="screen-num">11</span>Sincronizar BT/USB</a>
+    <div class="sidebar-section">Director</div>
+    <a class="screen-link new" data-src="12-vista-escuela.html" data-title="Vista de escuela completa"><span class="screen-num">12</span>Vista de escuela</a>
+  </aside>
+  <div class="stage">
+    <div class="phone-frame"><div class="phone-screen"><iframe id="screen-frame" src="01-splash.html" title="Pantalla del prototipo"></iframe></div></div>
+    <div class="controls">
+      <button class="ctrl-btn" id="prev-btn" aria-label="Anterior">‹</button>
+      <span class="ctrl-counter" id="counter">1 / 12</span>
+      <button class="ctrl-btn" id="next-btn" aria-label="Siguiente">›</button>
+    </div>
+    <div class="screen-title" id="screen-title">1 · Splash / Bienvenida</div>
+  </div>
+</div>
+<script>
+const links=document.querySelectorAll('.screen-link');
+const iframe=document.getElementById('screen-frame');
+const counter=document.getElementById('counter');
+const titleEl=document.getElementById('screen-title');
+const prevBtn=document.getElementById('prev-btn');
+const nextBtn=document.getElementById('next-btn');
+let current=0;const total=links.length;
+function go(i){
+  if(i<0||i>=total)return;
+  current=i;
+  iframe.src=links[i].dataset.src;
+  links.forEach((l,j)=>l.classList.toggle('active',j===i));
+  counter.textContent=`${i+1} / ${total}`;
+  titleEl.textContent=`${i+1} · ${links[i].dataset.title}`;
+  prevBtn.disabled=i===0;
+  nextBtn.disabled=i===total-1;
+  links[i].scrollIntoView({block:'nearest',behavior:'smooth'});
+  if(history.replaceState){history.replaceState(null,'','#'+(i+1))}
+}
+links.forEach((l,i)=>l.addEventListener('click',e=>{e.preventDefault();go(i)}));
+prevBtn.addEventListener('click',()=>go(current-1));
+nextBtn.addEventListener('click',()=>go(current+1));
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  if(e.key==='ArrowLeft')go(current-1);
+  if(e.key==='ArrowRight')go(current+1);
+});
+const hashIdx=parseInt(location.hash.replace('#',''),10);
+go(isNaN(hashIdx)?0:Math.max(0,Math.min(total-1,hashIdx-1)));
+</script>
+</body>
+</html>

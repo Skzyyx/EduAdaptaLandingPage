@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Splash</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FBF7F2; --orange: #E8611A; --orange-light: #F9D4B8;
+    --orange-mid: #F4A261; --green: #2A6049; --green-light: #C8E6DA;
+    --text: #1A1208; --text-mid: #5C4A2A; --text-soft: #9C8060;
+    --white: #FFFFFF; --radius: 20px;
+  }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+  .screen { width: 390px; height: 844px; position: relative; display: flex; flex-direction: column; align-items: center; overflow: hidden; background: var(--bg); }
+  .bg-blob { position: absolute; top: -60px; right: -80px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, #F9D4B8 0%, #F4A261 60%, transparent 100%); opacity: 0.45; z-index: 0; }
+  .bg-blob-2 { position: absolute; bottom: 120px; left: -100px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, #C8E6DA 0%, #2A6049 70%, transparent 100%); opacity: 0.22; z-index: 0; }
+  .dots-pattern { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle, #D4A57A 1px, transparent 1px); background-size: 24px 24px; opacity: 0.12; z-index: 0; }
+  .top-section { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; padding-top: 80px; }
+  .logo-mark { width: 96px; height: 96px; background: var(--orange); border-radius: 28px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(232,97,26,0.35); position: relative; overflow: hidden; }
+  .logo-mark::after { content: ''; position: absolute; top: -20px; right: -20px; width: 60px; height: 60px; background: rgba(255,255,255,0.15); border-radius: 50%; }
+  .logo-mark svg { width: 52px; height: 52px; fill: white; position: relative; z-index: 1; }
+  .brand-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: 36px; color: var(--text); letter-spacing: -1px; line-height: 1; }
+  .brand-name span { color: var(--orange); }
+  .brand-tagline { font-size: 13px; color: var(--text-soft); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px; }
+  .illustration-area { position: relative; z-index: 1; margin-top: 40px; width: 320px; height: 220px; }
+  .illus-card { position: absolute; border-radius: 16px; display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .illus-card.main { width: 260px; top: 20px; left: 30px; background: var(--green); color: white; padding: 20px 24px; flex-direction: column; align-items: flex-start; gap: 6px; z-index: 2; }
+  .illus-card.main .card-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.7; }
+  .illus-card.main .card-text { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; line-height: 1.3; }
+  .progress-row { width: 100%; display: flex; gap: 6px; margin-top: 4px; }
+  .prog-dot { flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.3); }
+  .prog-dot.filled { background: var(--orange-mid); }
+  .illus-card.stat { bottom: 30px; right: 10px; background: var(--orange); color: white; z-index: 3; flex-direction: column; align-items: center; padding: 14px 18px; gap: 2px; }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; line-height: 1; }
+  .stat-sub { font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.85; text-align: center; }
+  .illus-card.small { top: 0; right: 10px; background: var(--orange-light); gap: 8px; z-index: 3; padding: 10px 14px; }
+  .emoji-big { font-size: 22px; }
+  .small-text { font-size: 12px; color: var(--text-mid); font-weight: 600; }
+  .bottom-section { position: relative; z-index: 1; width: 100%; padding: 0 32px; margin-top: auto; padding-bottom: 52px; }
+  .hero-text { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: var(--text); line-height: 1.25; text-align: center; margin-bottom: 10px; }
+  .hero-sub { font-size: 14px; color: var(--text-soft); text-align: center; line-height: 1.6; margin-bottom: 36px; }
+  .btn-primary { display: block; width: 100%; background: var(--orange); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 600; padding: 17px 24px; border-radius: var(--radius); border: none; cursor: pointer; text-align: center; box-shadow: 0 6px 24px rgba(232,97,26,0.3); margin-bottom: 14px; text-decoration: none; }
+  .btn-secondary { display: block; width: 100%; background: transparent; color: var(--text-mid); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 500; padding: 14px 24px; border-radius: var(--radius); border: 1.5px solid rgba(92,74,42,0.2); cursor: pointer; text-align: center; text-decoration: none; }
+  .offline-badge { position: absolute; top: 48px; right: 24px; z-index: 10; background: var(--green-light); border-radius: 20px; padding: 6px 12px; display: flex; align-items: center; gap: 5px; }
+  .offline-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+  .offline-text { font-size: 11px; font-weight: 600; color: var(--green); letter-spacing: 0.04em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="dots-pattern"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob-2"></div>
+  <div class="offline-badge"><div class="offline-dot"></div><span class="offline-text">100% Offline</span></div>
+  <div class="top-section">
+    <div class="logo-mark">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 38 Q26 12 42 38" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle cx="26" cy="20" r="5" fill="white"/>
+        <rect x="18" y="40" width="16" height="3" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+      </svg>
+    </div>
+    <div class="brand-name">Edu<span>Adapta</span></div>
+    <div class="brand-tagline">Aprende a tu ritmo</div>
+  </div>
+  <div class="illustration-area">
+    <div class="illus-card small"><span class="emoji-big">📚</span><span class="small-text">Lectura<br>adaptativa</span></div>
+    <div class="illus-card main">
+      <span class="card-label">Progreso actual</span>
+      <span class="card-text">Comprensión<br>lectora</span>
+      <div class="progress-row"><div class="prog-dot filled"></div><div class="prog-dot filled"></div><div class="prog-dot filled"></div><div class="prog-dot"></div><div class="prog-dot"></div></div>
+    </div>
+    <div class="illus-card stat"><span class="stat-num">+63%</span><span class="stat-sub">Mejora<br>promedio</span></div>
+  </div>
+  <div class="bottom-section">
+    <h1 class="hero-text">Educación que llega donde otros no pueden</h1>
+    <p class="hero-sub">Aprendizaje personalizado para cada niño, sin necesitar internet.</p>
+    <a class="btn-primary" href="#">Comenzar ahora</a>
+    <a class="btn-secondary" href="#">Ya tengo cuenta</a>
+  </div>
+</div>
+</body>
+</html>

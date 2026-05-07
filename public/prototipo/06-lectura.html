@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Actividad Lectura</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #FBF7F2; --orange: #E8611A; --orange-light: #F9D4B8; --orange-mid: #F4A261; --green: #2A6049; --green-light: #C8E6DA; --text: #1A1208; --text-mid: #5C4A2A; --text-soft: #9C8060; --white: #FFFFFF; --radius: 20px; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+  .screen { width: 390px; height: 844px; position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+  .header { padding: 52px 28px 16px; background: white; border-bottom: 1px solid rgba(0,0,0,0.06); flex-shrink: 0; }
+  .header-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .back-btn { width: 38px; height: 38px; border-radius: 11px; background: var(--bg); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+  .header-meta { flex: 1; }
+  .header-subject { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); margin-bottom: 2px; }
+  .header-lesson { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.2; }
+  .xp-chip { background: var(--orange-light); border-radius: 10px; padding: 5px 10px; font-size: 12px; font-weight: 700; color: var(--orange); flex-shrink: 0; }
+  .progress-row { display: flex; align-items: center; gap: 8px; }
+  .progress-steps { display: flex; gap: 4px; flex: 1; }
+  .step-seg { flex: 1; height: 6px; border-radius: 3px; background: rgba(0,0,0,0.08); }
+  .step-seg.done { background: var(--green); }
+  .step-seg.current { background: var(--orange); }
+  .progress-label { font-size: 11px; font-weight: 600; color: var(--text-soft); white-space: nowrap; }
+  .content-scroll { flex: 1; overflow-y: auto; padding: 20px 28px; }
+  .story-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .story-type-tag { background: var(--green-light); border-radius: 8px; padding: 4px 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); }
+  .story-difficulty { display: flex; gap: 2px; }
+  .diff-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.12); }
+  .diff-dot.filled { background: var(--orange); }
+  .story-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.25; }
+  .story-meta { font-size: 11px; color: var(--text-soft); font-weight: 500; margin-bottom: 16px; }
+  .story-image { width: 100%; height: 140px; border-radius: 16px; background: linear-gradient(135deg, #2A6049 0%, #4A9070 50%, #6DB899 100%); margin-bottom: 18px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .story-emoji { font-size: 56px; position: relative; z-index: 1; }
+  .story-image-label { position: absolute; bottom: 12px; left: 14px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 0.04em; }
+  .story-text { font-family: 'Fraunces', serif; font-size: 17px; color: var(--text); line-height: 1.75; font-weight: 400; margin-bottom: 20px; }
+  .story-text .highlight { background: var(--orange-light); border-radius: 4px; padding: 1px 4px; color: var(--orange); font-style: normal; font-weight: 600; cursor: pointer; }
+  .word-tooltip { background: var(--text); color: white; border-radius: 12px; padding: 10px 14px; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; line-height: 1.4; }
+  .word-tooltip strong { color: var(--orange-mid); font-weight: 700; }
+  .question-box { background: white; border-radius: 18px; padding: 18px; border: 1.5px solid rgba(0,0,0,0.07); margin-bottom: 12px; }
+  .q-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); margin-bottom: 6px; }
+  .q-text { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 14px; }
+  .options-compact { display: flex; flex-direction: column; gap: 8px; }
+  .option-compact { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px; background: var(--bg); border: 1.5px solid transparent; cursor: pointer; }
+  .option-compact.selected { background: var(--orange); border-color: var(--orange); }
+  .opt-letter { width: 26px; height: 26px; border-radius: 8px; background: rgba(0,0,0,0.06); font-size: 11px; font-weight: 700; color: var(--text-mid); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .option-compact.selected .opt-letter { background: rgba(255,255,255,0.25); color: white; }
+  .opt-text { font-size: 13px; font-weight: 500; color: var(--text); }
+  .option-compact.selected .opt-text { color: white; }
+  .bottom-bar { background: white; border-top: 1px solid rgba(0,0,0,0.06); padding: 14px 28px 34px; display: flex; gap: 10px; flex-shrink: 0; }
+  .btn-skip { width: 50px; height: 50px; border-radius: 14px; background: var(--bg); border: 1.5px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+  .btn-check { flex: 1; background: var(--green); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 600; border-radius: 14px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="header">
+    <div class="header-row">
+      <button class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="header-meta"><div class="header-subject">Módulo · Lectura</div><div class="header-lesson">Comprensión narrativa</div></div>
+      <div class="xp-chip">+15 XP</div>
+    </div>
+    <div class="progress-row"><div class="progress-steps"><div class="step-seg done"></div><div class="step-seg done"></div><div class="step-seg current"></div><div class="step-seg"></div><div class="step-seg"></div></div><span class="progress-label">3 / 5</span></div>
+  </div>
+  <div class="content-scroll">
+    <div class="story-header"><span class="story-type-tag">Cuento</span><div class="story-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot"></div></div></div>
+    <h2 class="story-title">El viaje de Tomás</h2>
+    <p class="story-meta">2° de primaria · Lectura adaptada a tu nivel</p>
+    <div class="story-image"><span class="story-emoji">🌲🏕️🌄</span><span class="story-image-label">Ilustración del cuento</span></div>
+    <p class="story-text">Tomás era un niño muy <span class="highlight">curioso</span> que vivía en un pueblo pequeño. Un día, su abuela le contó que al otro lado del bosque había un lago de aguas brillantes.<br><br>Tomás empacó su mochila con pan, una manzana y su linterna. Salió temprano, cuando el sol <span class="highlight">apenas</span> salía. El camino era largo, pero él cantaba para no sentir el cansancio.</p>
+    <div class="word-tooltip">💡 <span><strong>curioso:</strong> que quiere saber muchas cosas</span></div>
+    <div class="question-box">
+      <p class="q-label">Pregunta de comprensión</p>
+      <h3 class="q-text">¿Por qué Tomás llevó una linterna?</h3>
+      <div class="options-compact">
+        <div class="option-compact"><div class="opt-letter">A</div><span class="opt-text">Para ver en la oscuridad del bosque</span></div>
+        <div class="option-compact selected"><div class="opt-letter">B</div><span class="opt-text">Porque salió cuando apenas amanecía</span></div>
+        <div class="option-compact"><div class="opt-letter">C</div><span class="opt-text">Su abuela se la pidió</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn-skip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#5C4A2A" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <button class="btn-check">Verificar respuesta ✓</button>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Vista de escuela</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F4F1EE;--orange:#E8611A;--orange-light:#F9D4B8;--green:#2A6049;--green-light:#C8E6DA;--purple:#5B4B8A;--purple-light:#E0D9F3;--yellow:#D4A017;--yellow-light:#FEF6D6;--red:#D94040;--red-light:#FDDCDC;--text:#1A1208;--text-mid:#5C4A2A;--text-soft:#9C8060;--white:#FFFFFF}
+html,body{width:390px;height:844px;overflow:hidden;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif}
+.screen{width:390px;height:844px;display:flex;flex-direction:column;overflow-y:auto;background:var(--bg)}
+.header{background:var(--purple);padding:52px 28px 22px;flex-shrink:0;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-40px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06)}
+.header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1}
+.back-btn{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.15);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.role-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.18);border-radius:18px;padding:5px 12px;font-size:11px;font-weight:600;color:white}
+.school-info{position:relative;z-index:1}
+.school-label{font-size:10.5px;font-weight:600;color:rgba(255,255,255,0.65);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px}
+.school-name{font-family:'Fraunces',serif;font-size:21px;font-weight:700;color:white;line-height:1.2;margin-bottom:14px}
+.school-counts{display:flex;gap:18px;flex-wrap:wrap}
+.count-item{display:flex;align-items:center;gap:5px;font-size:12px;color:rgba(255,255,255,0.85);font-weight:500}
+.tabs{background:white;display:flex;padding:6px 10px;gap:4px;flex-shrink:0;border-bottom:1px solid rgba(0,0,0,0.06)}
+.tab-btn{flex:1;padding:9px 4px;border-radius:10px;font-size:12px;font-weight:600;color:var(--text-soft);background:none;border:none;font-family:inherit;cursor:pointer;text-align:center}
+.tab-btn.active{background:var(--purple-light);color:var(--purple)}
+.content{flex:1;padding:18px 28px}
+.semaphore-card{background:white;border-radius:18px;padding:14px;border:1.5px solid rgba(0,0,0,0.06);margin-bottom:18px}
+.sem-title{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px}
+.sem-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sem-stat{padding:12px 8px;border-radius:12px;text-align:center;position:relative}
+.sem-stat.green{background:var(--green-light)}
+.sem-stat.yellow{background:var(--yellow-light)}
+.sem-stat.red{background:var(--red-light)}
+.sem-dot{width:9px;height:9px;border-radius:50%;position:absolute;top:8px;right:8px}
+.sem-stat.green .sem-dot{background:var(--green)}
+.sem-stat.yellow .sem-dot{background:var(--yellow)}
+.sem-stat.red .sem-dot{background:var(--red)}
+.sem-num{font-family:'Fraunces',serif;font-size:24px;font-weight:700;display:block;line-height:1;margin-bottom:2px}
+.sem-stat.green .sem-num{color:var(--green)}
+.sem-stat.yellow .sem-num{color:#8B6914}
+.sem-stat.red .sem-num{color:var(--red)}
+.sem-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em}
+.sem-stat.green .sem-label{color:var(--green)}
+.sem-stat.yellow .sem-label{color:#8B6914}
+.sem-stat.red .sem-label{color:var(--red)}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin:6px 4px 10px}
+.section-title{font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:var(--text)}
+.section-link{font-size:11.5px;color:var(--purple);font-weight:600;cursor:pointer;text-decoration:none}
+.group-card{background:white;border-radius:14px;padding:12px 14px;border:1.5px solid rgba(0,0,0,0.05);margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.group-num{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:13.5px;font-weight:700;flex-shrink:0;color:white;line-height:1}
+.group-num.green{background:var(--green)}
+.group-num.yellow{background:var(--yellow)}
+.group-num.red{background:var(--red)}
+.group-info{flex:1;min-width:0}
+.group-meta{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap}
+.group-name{font-size:12.5px;font-weight:700;color:var(--text)}
+.group-teacher{font-size:11px;color:var(--text-soft);font-weight:500}
+.group-track{height:5px;background:rgba(0,0,0,0.07);border-radius:3px;overflow:hidden;width:100%}
+.group-fill{height:100%;border-radius:3px}
+.group-fill.green{background:var(--green)}
+.group-fill.yellow{background:var(--yellow)}
+.group-fill.red{background:var(--red)}
+.group-pct{font-size:13px;font-weight:700;flex-shrink:0;min-width:38px;text-align:right;font-family:'Fraunces',serif}
+.group-pct.green{color:var(--green)}
+.group-pct.yellow{color:#8B6914}
+.group-pct.red{color:var(--red)}
+.group-card.is-mine{border-left:4px solid var(--orange);background:linear-gradient(to right,rgba(232,97,26,0.04),white 40%)}
+.mine-badge{font-size:9px;font-weight:700;background:var(--orange);color:white;padding:1px 6px;border-radius:4px;letter-spacing:0.04em;margin-left:4px}
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="header">
+    <div class="header-row">
+      <button class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="role-chip">👔 Docente-Director</div>
+    </div>
+    <div class="school-info">
+      <div class="school-label">Vista de toda la escuela</div>
+      <div class="school-name">Esc. Prim. Benito Juárez</div>
+      <div class="school-counts"><div class="count-item">📚 6 grupos</div><div class="count-item">👥 156 alumnos</div><div class="count-item">🧑‍🏫 12 docentes</div></div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn">Mi grupo</button>
+    <button class="tab-btn active">Toda la escuela</button>
+    <button class="tab-btn">Reportes</button>
+  </div>
+  <div class="content">
+    <div class="semaphore-card">
+      <div class="sem-title">📍 Semáforo de la escuela</div>
+      <div class="sem-grid">
+        <div class="sem-stat green"><span class="sem-dot"></span><span class="sem-num">4</span><span class="sem-label">Bien</span></div>
+        <div class="sem-stat yellow"><span class="sem-dot"></span><span class="sem-num">1</span><span class="sem-label">Preventivo</span></div>
+        <div class="sem-stat red"><span class="sem-dot"></span><span class="sem-num">1</span><span class="sem-label">Crítico</span></div>
+      </div>
+    </div>
+    <div class="section-header"><span class="section-title">Avance por grupo</span><a class="section-link">Filtrar</a></div>
+    <div class="group-card"><div class="group-num green">1°</div><div class="group-info"><div class="group-meta"><span class="group-name">1° A</span><span class="group-teacher">· Mtra. Lucía</span></div><div class="group-track"><div class="group-fill green" style="width:78%"></div></div></div><span class="group-pct green">78%</span></div>
+    <div class="group-card"><div class="group-num green">2°</div><div class="group-info"><div class="group-meta"><span class="group-name">2° B</span><span class="group-teacher">· Mtro. Daniel</span></div><div class="group-track"><div class="group-fill green" style="width:65%"></div></div></div><span class="group-pct green">65%</span></div>
+    <div class="group-card is-mine"><div class="group-num green">3°</div><div class="group-info"><div class="group-meta"><span class="group-name">3°-5° Multigrado</span><span class="mine-badge">MI GRUPO</span></div><div class="group-track"><div class="group-fill green" style="width:71%"></div></div></div><span class="group-pct green">71%</span></div>
+    <div class="group-card"><div class="group-num yellow">4°</div><div class="group-info"><div class="group-meta"><span class="group-name">4° B</span><span class="group-teacher">· Mtra. Inés (preventivo)</span></div><div class="group-track"><div class="group-fill yellow" style="width:52%"></div></div></div><span class="group-pct yellow">52%</span></div>
+    <div class="group-card"><div class="group-num green">5°</div><div class="group-info"><div class="group-meta"><span class="group-name">5° A</span><span class="group-teacher">· Mtro. Raúl</span></div><div class="group-track"><div class="group-fill green" style="width:68%"></div></div></div><span class="group-pct green">68%</span></div>
+    <div class="group-card"><div class="group-num red">6°</div><div class="group-info"><div class="group-meta"><span class="group-name">6° B</span><span class="group-teacher">· Mtra. Patricia (crítico)</span></div><div class="group-track"><div class="group-fill red" style="width:38%"></div></div></div><span class="group-pct red">38%</span></div>
+  </div>
+</div>
+</body>
+</html>

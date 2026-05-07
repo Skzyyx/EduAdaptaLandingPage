@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Dashboard Alumno</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #FBF7F2; --orange: #E8611A; --orange-light: #F9D4B8; --orange-mid: #F4A261; --green: #2A6049; --green-light: #C8E6DA; --yellow: #F5C842; --text: #1A1208; --text-mid: #5C4A2A; --text-soft: #9C8060; --white: #FFFFFF; --radius: 20px; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+  .screen { width: 390px; height: 844px; position: relative; display: flex; flex-direction: column; overflow-y: auto; background: var(--bg); }
+  .greeting-area { background: var(--green); padding: 52px 28px 28px; position: relative; overflow: hidden; flex-shrink: 0; }
+  .greeting-area::before { content: ''; position: absolute; top: -40px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+  .greeting-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .brand-small { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: white; }
+  .brand-small span { color: var(--orange-mid); }
+  .notif-btn { width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; }
+  .notif-dot { position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--orange-mid); border: 2px solid var(--green); }
+  .greeting-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
+  .greeting-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; color: white; line-height: 1.25; margin-bottom: 16px; }
+  .streak-row { display: flex; gap: 10px; }
+  .streak-chip { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border-radius: 20px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: white; }
+  .level-card { margin: -20px 28px 0; background: var(--orange); border-radius: 20px; padding: 18px 20px; position: relative; z-index: 2; overflow: hidden; box-shadow: 0 8px 28px rgba(232,97,26,0.35); flex-shrink: 0; }
+  .level-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+  .level-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .level-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.7); }
+  .level-badge { background: rgba(255,255,255,0.2); border-radius: 8px; padding: 3px 10px; font-size: 12px; font-weight: 700; color: white; }
+  .level-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 8px; }
+  .level-track { background: rgba(0,0,0,0.2); border-radius: 4px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+  .level-fill { height: 100%; border-radius: 4px; background: var(--yellow); width: 67%; }
+  .level-xp { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 500; }
+  .section { padding: 24px 28px 0; flex-shrink: 0; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--text); }
+  .section-link { font-size: 12px; color: var(--orange); font-weight: 600; cursor: pointer; }
+  .continue-card { background: white; border-radius: 18px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 14px; border: 1.5px solid rgba(0,0,0,0.06); cursor: pointer; }
+  .continue-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .continue-icon.lectura { background: var(--orange-light); }
+  .continue-icon.math { background: var(--green-light); }
+  .continue-info { flex: 1; }
+  .continue-subject { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .continue-subject.lectura { color: var(--orange); }
+  .continue-subject.math { color: var(--green); }
+  .continue-title { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
+  .mini-track { height: 5px; background: rgba(0,0,0,0.07); border-radius: 3px; overflow: hidden; width: 100%; }
+  .mini-fill { height: 100%; border-radius: 3px; }
+  .mini-fill.lectura { background: var(--orange); width: 55%; }
+  .mini-fill.math { background: var(--green); width: 30%; }
+  .continue-pct { font-size: 11px; color: var(--text-soft); margin-top: 3px; font-weight: 500; }
+  .continue-arrow { width: 32px; height: 32px; border-radius: 10px; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .achievements-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+  .achievement-item { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; width: 72px; }
+  .ach-circle { width: 56px; height: 56px; border-radius: 18px; background: white; border: 1.5px solid rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+  .ach-circle.earned { background: var(--yellow); border-color: var(--yellow); }
+  .ach-name { font-size: 10px; color: var(--text-soft); text-align: center; font-weight: 500; line-height: 1.3; }
+  .bottom-nav { margin-top: auto; flex-shrink: 0; background: white; border-top: 1px solid rgba(0,0,0,0.07); display: flex; padding: 10px 0 28px; }
+  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; padding: 6px 0; }
+  .nav-icon { font-size: 20px; }
+  .nav-label { font-size: 10px; font-weight: 600; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+  .nav-item.active .nav-label { color: var(--orange); }
+  .nav-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--orange); display: none; }
+  .nav-item.active .nav-dot { display: block; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="greeting-area">
+    <div class="greeting-top-row">
+      <span class="brand-small">Edu<span>Adapta</span></span>
+      <div class="notif-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="white" stroke-width="2" stroke-linecap="round"/></svg><div class="notif-dot"></div></div>
+    </div>
+    <p class="greeting-name">Buenos días, María</p>
+    <h1 class="greeting-title">¿Lista para aprender<br>algo nuevo hoy? 🌟</h1>
+    <div class="streak-row"><div class="streak-chip">🔥 7 días seguidos</div><div class="streak-chip">⭐ 420 puntos</div></div>
+  </div>
+  <div class="level-card">
+    <div class="level-top-row"><span class="level-label">Nivel actual</span><span class="level-badge">Nivel 3</span></div>
+    <div class="level-name">Lectora en progreso 📖</div>
+    <div class="level-track"><div class="level-fill"></div></div>
+    <span class="level-xp">670 / 1000 XP para Nivel 4</span>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-title">Continuar donde dejé</span><a class="section-link">Ver todo</a></div>
+    <div class="continue-card"><div class="continue-icon lectura">📖</div><div class="continue-info"><div class="continue-subject lectura">Lectura</div><div class="continue-title">Comprensión de textos narrativos</div><div class="mini-track"><div class="mini-fill lectura"></div></div><div class="continue-pct">55% completado · Lección 6 de 11</div></div><div class="continue-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#5C4A2A" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+    <div class="continue-card"><div class="continue-icon math">🔢</div><div class="continue-info"><div class="continue-subject math">Matemáticas</div><div class="continue-title">Suma y resta con reagrupación</div><div class="mini-track"><div class="mini-fill math"></div></div><div class="continue-pct">30% completado · Lección 3 de 10</div></div><div class="continue-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#5C4A2A" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+  </div>
+  <div class="section" style="padding-bottom:16px;">
+    <div class="section-header"><span class="section-title">Mis logros</span><a class="section-link">Ver todos</a></div>
+    <div class="achievements-row">
+      <div class="achievement-item"><div class="ach-circle earned">🔥</div><span class="ach-name">Racha de 7 días</span></div>
+      <div class="achievement-item"><div class="ach-circle earned">📚</div><span class="ach-name">Gran lector</span></div>
+      <div class="achievement-item"><div class="ach-circle earned">⚡</div><span class="ach-name">Veloz</span></div>
+      <div class="achievement-item"><div class="ach-circle">🏆</div><span class="ach-name">Top 10</span></div>
+      <div class="achievement-item"><div class="ach-circle">🌟</div><span class="ach-name">Nivel 5</span></div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item active"><span class="nav-icon">🏠</span><span class="nav-label">Inicio</span><div class="nav-dot"></div></div>
+    <div class="nav-item"><span class="nav-icon">📖</span><span class="nav-label">Lecciones</span><div class="nav-dot"></div></div>
+    <div class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Progreso</span><div class="nav-dot"></div></div>
+    <div class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-label">Ajustes</span><div class="nav-dot"></div></div>
+  </div>
+</div>
+</body>
+</html>

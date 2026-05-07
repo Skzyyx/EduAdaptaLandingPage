@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Perfil</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #FBF7F2; --orange: #E8611A; --orange-light: #F9D4B8; --orange-mid: #F4A261; --green: #2A6049; --green-light: #C8E6DA; --purple: #5B4B8A; --purple-light: #E0D9F3; --text: #1A1208; --text-mid: #5C4A2A; --text-soft: #9C8060; --white: #FFFFFF; --radius: 20px; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+  .screen { width: 390px; height: 844px; position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+  .header { padding: 52px 28px 0; position: relative; z-index: 1; }
+  .back-btn { width: 40px; height: 40px; border-radius: 12px; background: white; border: 1.5px solid rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 28px; }
+  .header-title { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 700; color: var(--text); line-height: 1.2; letter-spacing: -0.5px; }
+  .header-sub { font-size: 14px; color: var(--text-soft); margin-top: 6px; line-height: 1.5; }
+  .roles-section { padding: 32px 28px 0; position: relative; z-index: 1; }
+  .roles-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 16px; }
+  .roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .role-card { border-radius: 18px; padding: 22px 18px; cursor: pointer; position: relative; overflow: hidden; transition: transform 0.15s; }
+  .role-card:active { transform: scale(0.97); }
+  .role-card.alumno { background: var(--orange); color: white; }
+  .role-card.docente { background: var(--green); color: white; }
+  .role-card.director { background: var(--purple); color: white; }
+  .role-card.padre { background: white; border: 1.5px solid rgba(0,0,0,0.1); color: var(--text); }
+  .role-card::before { content: ''; position: absolute; top: -16px; right: -16px; width: 70px; height: 70px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+  .role-emoji { font-size: 32px; display: block; margin-bottom: 10px; }
+  .role-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; line-height: 1.2; display: block; }
+  .role-desc { font-size: 11px; font-weight: 500; opacity: 0.75; margin-top: 3px; display: block; }
+  .role-card.padre .role-desc { color: var(--text-soft); }
+  .role-card.selected::after { content: '✓'; position: absolute; top: 12px; right: 14px; width: 22px; height: 22px; background: rgba(255,255,255,0.25); border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: white; }
+  .divider-row { display: flex; align-items: center; gap: 12px; padding: 24px 28px 0; }
+  .divider-line { flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
+  .divider-text { font-size: 12px; color: var(--text-soft); font-weight: 500; }
+  .form-section { padding: 20px 28px 0; position: relative; z-index: 1; }
+  .input-group { margin-bottom: 14px; }
+  .input-label { font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; display: block; letter-spacing: 0.03em; }
+  .input-field { width: 100%; height: 50px; border-radius: 14px; border: 1.5px solid rgba(0,0,0,0.1); background: white; padding: 0 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; color: var(--text); outline: none; }
+  .input-field::placeholder { color: var(--text-soft); }
+  .input-field:focus { border-color: var(--orange); }
+  .bottom-section { margin-top: auto; padding: 0 28px 44px; position: relative; z-index: 1; }
+  .btn-primary { display: block; width: 100%; background: var(--orange); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 600; padding: 17px 24px; border-radius: var(--radius); border: none; cursor: pointer; text-align: center; box-shadow: 0 6px 24px rgba(232,97,26,0.3); margin-bottom: 12px; }
+  .link-text { text-align: center; font-size: 13px; color: var(--text-soft); display: block; }
+  .link-text a { color: var(--orange); font-weight: 600; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="header">
+    <div class="back-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1A1208" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h1 class="header-title">¿Quién está<br>aprendiendo hoy?</h1>
+    <p class="header-sub">Selecciona tu perfil para comenzar</p>
+  </div>
+  <div class="roles-section">
+    <p class="roles-label">Tipo de usuario</p>
+    <div class="roles-grid">
+      <div class="role-card alumno selected"><span class="role-emoji">🎒</span><span class="role-name">Alumno</span><span class="role-desc">6 a 12 años</span></div>
+      <div class="role-card docente"><span class="role-emoji">📋</span><span class="role-name">Docente</span><span class="role-desc">Ver mi grupo</span></div>
+      <div class="role-card director"><span class="role-emoji">🏫</span><span class="role-name">Director</span><span class="role-desc">Reportes</span></div>
+      <div class="role-card padre"><span class="role-emoji">👨‍👧</span><span class="role-name">Padre</span><span class="role-desc">Ver progreso</span></div>
+    </div>
+  </div>
+  <div class="divider-row"><div class="divider-line"></div><span class="divider-text">Ingresar como alumno</span><div class="divider-line"></div></div>
+  <div class="form-section">
+    <div class="input-group"><label class="input-label">Nombre del alumno</label><input class="input-field" type="text" placeholder="Ej. María Rodríguez"></div>
+    <div class="input-group"><label class="input-label">PIN de acceso (4 dígitos)</label><input class="input-field" type="password" placeholder="• • • •" maxlength="4"></div>
+  </div>
+  <div class="bottom-section">
+    <button class="btn-primary">Entrar a aprender →</button>
+    <span class="link-text">¿Primer vez? <a href="#">Registro rápido</a></span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Reporte de Progreso</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #FBF7F2; --orange: #E8611A; --orange-light: #F9D4B8; --orange-mid: #F4A261; --green: #2A6049; --green-light: #C8E6DA; --purple: #5B4B8A; --purple-light: #E0D9F3; --yellow: #F5C842; --text: #1A1208; --text-mid: #5C4A2A; --text-soft: #9C8060; --white: #FFFFFF; --radius: 20px; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+  .screen { width: 390px; height: 844px; display: flex; flex-direction: column; overflow-y: auto; background: var(--bg); }
+  .header { background: var(--green); padding: 52px 28px 24px; flex-shrink: 0; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -40px; right: -50px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; position: relative; z-index: 1; }
+  .back-btn { width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.15); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .share-btn { width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.15); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .header-title { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); letter-spacing: 0.06em; text-transform: uppercase; }
+  .student-profile { display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+  .student-avatar { width: 56px; height: 56px; border-radius: 18px; background: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; font-family: 'Fraunces', serif; color: white; box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+  .student-info { flex: 1; }
+  .student-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 2px; }
+  .student-meta { font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 500; }
+  .overall-score { text-align: right; }
+  .score-big { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 700; color: var(--yellow); line-height: 1; display: block; }
+  .score-label { font-size: 10px; color: rgba(255,255,255,0.65); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .period-tabs { background: white; padding: 14px 28px; display: flex; gap: 8px; border-bottom: 1px solid rgba(0,0,0,0.06); flex-shrink: 0; }
+  .period-tab { flex: 1; text-align: center; padding: 8px 4px; border-radius: 10px; font-size: 12px; font-weight: 600; color: var(--text-soft); cursor: pointer; border: none; background: none; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .period-tab.active { background: var(--orange); color: white; }
+  .content { flex: 1; overflow-y: auto; padding: 20px 28px; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .skill-card { background: white; border-radius: 16px; padding: 16px 14px; border: 1.5px solid rgba(0,0,0,0.06); }
+  .skill-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .skill-icon { font-size: 22px; }
+  .skill-change { font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 6px; }
+  .skill-change.up { background: var(--green-light); color: var(--green); }
+  .skill-name { font-size: 12px; font-weight: 700; color: var(--text-mid); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .circle-wrap { display: flex; align-items: center; gap: 10px; }
+  .circle-svg { flex-shrink: 0; }
+  .circle-info { flex: 1; }
+  .circle-pct { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--text); display: block; line-height: 1; margin-bottom: 2px; }
+  .circle-sublabel { font-size: 10px; color: var(--text-soft); font-weight: 500; }
+  .chart-card { background: white; border-radius: 18px; padding: 18px; margin-bottom: 16px; border: 1.5px solid rgba(0,0,0,0.06); }
+  .chart-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 80px; margin-bottom: 8px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+  .bar { width: 100%; border-radius: 6px 6px 3px 3px; }
+  .bar-label { font-size: 9px; color: var(--text-soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .chart-legend { display: flex; gap: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-soft); font-weight: 500; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+  .comp-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .comp-row:last-child { border-bottom: none; }
+  .comp-emoji { font-size: 18px; flex-shrink: 0; }
+  .comp-info { flex: 1; }
+  .comp-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .comp-track { height: 5px; background: rgba(0,0,0,0.07); border-radius: 3px; overflow: hidden; }
+  .comp-fill { height: 100%; border-radius: 3px; }
+  .comp-pct { font-size: 12px; font-weight: 700; flex-shrink: 0; min-width: 34px; text-align: right; }
+  .rec-card { background: var(--orange); border-radius: 18px; padding: 18px 20px; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .rec-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+  .rec-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
+  .rec-text { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: white; line-height: 1.4; margin-bottom: 12px; position: relative; z-index: 1; }
+  .rec-btn { background: rgba(255,255,255,0.2); border: none; border-radius: 10px; padding: 8px 16px; font-size: 12px; font-weight: 700; color: white; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="header">
+    <div class="header-top"><button class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></button><span class="header-title">Reporte de progreso</span><button class="share-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    <div class="student-profile"><div class="student-avatar">MR</div><div class="student-info"><div class="student-name">María Rodríguez</div><div class="student-meta">3° A · Nivel 3 · 420 XP</div></div><div class="overall-score"><span class="score-big">B+</span><span class="score-label">Promedio</span></div></div>
+  </div>
+  <div class="period-tabs"><button class="period-tab">Semana</button><button class="period-tab active">Mes</button><button class="period-tab">Bimestre</button></div>
+  <div class="content">
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-top"><span class="skill-icon">📖</span><span class="skill-change up">+14%</span></div><div class="skill-name">Lectura</div><div class="circle-wrap"><svg class="circle-svg" width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="4"/><circle cx="22" cy="22" r="18" fill="none" stroke="#2A6049" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="27" stroke-linecap="round" transform="rotate(-90 22 22)"/></svg><div class="circle-info"><span class="circle-pct">76%</span><span class="circle-sublabel">completado</span></div></div></div>
+      <div class="skill-card"><div class="skill-top"><span class="skill-icon">🔢</span><span class="skill-change up">+8%</span></div><div class="skill-name">Matemáticas</div><div class="circle-wrap"><svg class="circle-svg" width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="4"/><circle cx="22" cy="22" r="18" fill="none" stroke="#E8611A" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="56" stroke-linecap="round" transform="rotate(-90 22 22)"/></svg><div class="circle-info"><span class="circle-pct">50%</span><span class="circle-sublabel">completado</span></div></div></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Actividad esta semana</div>
+      <div class="bar-chart"><div class="bar-col"><div class="bar" style="background:var(--green);height:45px;"></div><span class="bar-label">Lun</span></div><div class="bar-col"><div class="bar" style="background:var(--orange);height:60px;"></div><span class="bar-label">Mar</span></div><div class="bar-col"><div class="bar" style="background:var(--green);height:30px;"></div><span class="bar-label">Mié</span></div><div class="bar-col"><div class="bar" style="background:var(--orange);height:70px;"></div><span class="bar-label">Jue</span></div><div class="bar-col"><div class="bar" style="background:var(--green);height:50px;"></div><span class="bar-label">Vie</span></div><div class="bar-col"><div class="bar" style="background:rgba(0,0,0,0.1);height:15px;"></div><span class="bar-label">Sáb</span></div><div class="bar-col"><div class="bar" style="background:rgba(0,0,0,0.1);height:8px;"></div><span class="bar-label">Dom</span></div></div>
+      <div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div> Lectura</div><div class="legend-item"><div class="legend-dot" style="background:var(--orange);"></div> Matemáticas</div></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Competencias de lectura</div>
+      <div class="comp-row"><span class="comp-emoji">🔍</span><div class="comp-info"><div class="comp-name">Comprensión literal</div><div class="comp-track"><div class="comp-fill" style="background:var(--green);width:85%;"></div></div></div><span class="comp-pct" style="color:var(--green);">85%</span></div>
+      <div class="comp-row"><span class="comp-emoji">💭</span><div class="comp-info"><div class="comp-name">Comprensión inferencial</div><div class="comp-track"><div class="comp-fill" style="background:var(--orange);width:62%;"></div></div></div><span class="comp-pct" style="color:var(--orange);">62%</span></div>
+      <div class="comp-row"><span class="comp-emoji">📝</span><div class="comp-info"><div class="comp-name">Vocabulario en contexto</div><div class="comp-track"><div class="comp-fill" style="background:var(--orange-mid);width:71%;"></div></div></div><span class="comp-pct" style="color:var(--orange-mid);">71%</span></div>
+      <div class="comp-row"><span class="comp-emoji">✨</span><div class="comp-info"><div class="comp-name">Comprensión crítica</div><div class="comp-track"><div class="comp-fill" style="background:var(--purple);width:40%;"></div></div></div><span class="comp-pct" style="color:var(--purple);">40%</span></div>
+    </div>
+    <div class="rec-card"><div class="rec-label">🤖 Recomendación adaptativa</div><div class="rec-text">María está lista para el siguiente nivel en comprensión literal. Se sugiere reforzar la inferencia esta semana.</div><button class="rec-btn">Ver actividades sugeridas →</button></div>
+  </div>
+</div>
+</body>
+</html>

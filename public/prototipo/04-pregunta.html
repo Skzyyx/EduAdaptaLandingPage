@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Pregunta</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #FBF7F2; --orange: #E8611A; --orange-light: #F9D4B8; --orange-mid: #F4A261; --green: #2A6049; --green-light: #C8E6DA; --text: #1A1208; --text-mid: #5C4A2A; --text-soft: #9C8060; --white: #FFFFFF; --radius: 20px; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+  .screen { width: 390px; height: 844px; position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+  .header { padding: 52px 28px 0; position: relative; z-index: 1; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .back-btn { width: 40px; height: 40px; border-radius: 12px; background: white; border: 1.5px solid rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .timer-chip { display: flex; align-items: center; gap: 6px; background: var(--orange-light); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600; color: var(--orange); }
+  .timer-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+  .progress-section { display: flex; align-items: center; gap: 10px; }
+  .progress-track { flex: 1; height: 8px; background: rgba(0,0,0,0.08); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; background: var(--orange); width: 40%; }
+  .progress-text { font-size: 12px; font-weight: 600; color: var(--text-soft); white-space: nowrap; }
+  .reading-card { margin: 20px 28px 0; background: var(--green); border-radius: 20px; padding: 22px; position: relative; overflow: hidden; z-index: 1; }
+  .reading-card::before { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+  .reading-card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .reading-card-label::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--orange-mid); display: inline-block; }
+  .reading-text { font-family: 'Fraunces', serif; font-size: 16px; font-style: italic; color: white; line-height: 1.65; font-weight: 400; }
+  .reading-text strong { font-style: normal; font-weight: 600; color: var(--orange-mid); }
+  .question-section { padding: 24px 28px 0; position: relative; z-index: 1; }
+  .q-number { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+  .q-text { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 20px; }
+  .options-list { display: flex; flex-direction: column; gap: 10px; }
+  .option-item { display: flex; align-items: center; gap: 14px; background: white; border-radius: 14px; padding: 15px 18px; border: 1.5px solid rgba(0,0,0,0.08); cursor: pointer; }
+  .option-item.selected { background: var(--orange); border-color: var(--orange); }
+  .option-letter { width: 32px; height: 32px; border-radius: 10px; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--text-mid); flex-shrink: 0; }
+  .option-item.selected .option-letter { background: rgba(255,255,255,0.25); color: white; }
+  .option-text { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  .option-item.selected .option-text { color: white; }
+  .bottom-section { margin-top: auto; padding: 0 28px 44px; position: relative; z-index: 1; }
+  .btn-primary { display: flex; width: 100%; background: var(--orange); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 600; padding: 17px 24px; border-radius: var(--radius); border: none; cursor: pointer; justify-content: center; align-items: center; gap: 8px; box-shadow: 0 6px 24px rgba(232,97,26,0.3); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="header">
+    <div class="header-row">
+      <div class="back-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1A1208" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="timer-chip"><span class="timer-dot"></span>1:42</div>
+    </div>
+    <div class="progress-section"><div class="progress-track"><div class="progress-fill"></div></div><span class="progress-text">4 / 10</span></div>
+  </div>
+  <div class="reading-card">
+    <div class="reading-card-label">Lee con atención</div>
+    <p class="reading-text">La familia Ramos salió muy temprano por la mañana. <strong>Mamá</strong> preparó tortas y agua fresca. El pequeño <strong>Luis</strong> llevó su mochila verde con su libro favorito. Caminaron por el parque hasta llegar al lago.</p>
+  </div>
+  <div class="question-section">
+    <p class="q-number">Pregunta 4</p>
+    <h2 class="q-text">¿Qué llevó Luis en su mochila?</h2>
+    <div class="options-list">
+      <div class="option-item"><div class="option-letter">A</div><span class="option-text">Tortas y agua fresca</span></div>
+      <div class="option-item selected"><div class="option-letter">B</div><span class="option-text">Su libro favorito</span></div>
+      <div class="option-item"><div class="option-letter">C</div><span class="option-text">Una pelota de fútbol</span></div>
+      <div class="option-item"><div class="option-letter">D</div><span class="option-text">Un paraguas amarillo</span></div>
+    </div>
+  </div>
+  <div class="bottom-section">
+    <button class="btn-primary">Siguiente pregunta <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+</div>
+</body>
+</html>

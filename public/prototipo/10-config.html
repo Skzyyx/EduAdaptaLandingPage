@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Ajustes</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#FBF7F2;--orange:#E8611A;--orange-light:#F9D4B8;--green:#2A6049;--green-light:#C8E6DA;--text:#1A1208;--text-mid:#5C4A2A;--text-soft:#9C8060;--white:#FFFFFF}
+html,body{width:390px;height:844px;overflow:hidden;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif}
+.screen{width:390px;height:844px;display:flex;flex-direction:column;overflow-y:auto;background:var(--bg)}
+.header{padding:52px 28px 18px;background:white;border-bottom:1px solid rgba(0,0,0,0.06);flex-shrink:0;display:flex;align-items:center;gap:12px}
+.back-btn{width:38px;height:38px;border-radius:11px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.header-title{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--text)}
+.content{padding:18px 28px 28px;flex:1}
+.battery-card{background:linear-gradient(135deg,var(--green) 0%,#3F7A5C 100%);border-radius:16px;padding:14px 16px;color:white;margin-bottom:18px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+.battery-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.06)}
+.battery-icon{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;z-index:1}
+.battery-info{flex:1;position:relative;z-index:1}
+.battery-title{font-family:'Fraunces',serif;font-size:14.5px;font-weight:600;line-height:1.3}
+.battery-sub{font-size:11px;opacity:0.85;margin-top:2px;line-height:1.4}
+.section{margin-bottom:18px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-soft);margin-bottom:10px;padding-left:4px}
+.option-card{background:white;border-radius:14px;border:1.5px solid rgba(0,0,0,0.06);overflow:hidden}
+.option-row{display:flex;align-items:center;gap:14px;padding:13px 14px;border-bottom:1px solid rgba(0,0,0,0.05);cursor:pointer}
+.option-row:last-child{border-bottom:none}
+.option-icon{width:38px;height:38px;border-radius:11px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.option-info{flex:1;min-width:0}
+.option-name{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.25}
+.option-desc{font-size:11.5px;color:var(--text-soft);font-weight:500;line-height:1.4}
+.option-desc strong{color:var(--green);font-weight:700}
+.toggle{width:42px;height:24px;border-radius:12px;background:rgba(0,0,0,0.15);position:relative;flex-shrink:0;transition:background .15s;cursor:pointer}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:white;transition:transform .15s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.toggle.on{background:var(--green)}
+.toggle.on::after{transform:translateX(18px)}
+.toggle.warm.on{background:var(--orange)}
+.storage-card{background:white;border-radius:14px;padding:14px 16px;border:1.5px solid rgba(0,0,0,0.06)}
+.storage-bar{height:8px;background:rgba(0,0,0,0.06);border-radius:4px;overflow:hidden;margin:6px 0 10px}
+.storage-fill{height:100%;background:linear-gradient(to right,var(--green) 0%,var(--orange-light) 70%,var(--orange) 100%);width:38%;border-radius:4px}
+.storage-row{display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-soft);font-weight:500;margin-bottom:8px}
+.storage-row strong{color:var(--text);font-weight:700}
+.storage-btn{display:block;width:100%;background:var(--bg);border:1.5px solid rgba(0,0,0,0.08);border-radius:10px;padding:9px;font-size:12.5px;font-weight:600;color:var(--text-mid);cursor:pointer;font-family:inherit;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="header">
+    <button class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <h1 class="header-title">Ajustes</h1>
+  </div>
+  <div class="content">
+    <div class="battery-card">
+      <div class="battery-icon">🔋</div>
+      <div class="battery-info">
+        <div class="battery-title">Modo Ahorro Extremo activo</div>
+        <div class="battery-sub">+8 horas de batería · animaciones desactivadas</div>
+      </div>
+    </div>
+    <div class="section">
+      <p class="section-label">Apariencia</p>
+      <div class="option-card">
+        <div class="option-row"><div class="option-icon">🌗</div><div class="option-info"><div class="option-name">Modo de alto contraste</div><div class="option-desc"><strong>Optimizado para pantallas rayadas</strong> o con poco brillo. Mejor lectura al sol.</div></div><div class="toggle on"></div></div>
+        <div class="option-row"><div class="option-icon">🔠</div><div class="option-info"><div class="option-name">Texto grande</div><div class="option-desc">Aumenta el tamaño de letra para alumnos con vista cansada</div></div><div class="toggle"></div></div>
+        <div class="option-row"><div class="option-icon">🌙</div><div class="option-info"><div class="option-name">Tema oscuro</div><div class="option-desc">Reduce el cansancio visual por la tarde</div></div><div class="toggle"></div></div>
+      </div>
+    </div>
+    <div class="section">
+      <p class="section-label">Rendimiento</p>
+      <div class="option-card">
+        <div class="option-row"><div class="option-icon">⚡</div><div class="option-info"><div class="option-name">Bajo consumo de batería</div><div class="option-desc"><strong>Hasta 8 horas adicionales.</strong> Desactiva animaciones y reduce brillo automático.</div></div><div class="toggle warm on"></div></div>
+        <div class="option-row"><div class="option-icon">📦</div><div class="option-info"><div class="option-name">Modo Lite</div><div class="option-desc"><strong>Ideal para tablets antiguas.</strong> Carga solo lo esencial, sin imágenes pesadas.</div></div><div class="toggle warm on"></div></div>
+        <div class="option-row"><div class="option-icon">🎬</div><div class="option-info"><div class="option-name">Animaciones</div><div class="option-desc">Apágalas si la app se siente lenta en tu tablet</div></div><div class="toggle"></div></div>
+      </div>
+    </div>
+    <div class="section">
+      <p class="section-label">Almacenamiento</p>
+      <div class="storage-card">
+        <div class="storage-row"><span>Espacio usado</span><strong>142 MB de 380 MB</strong></div>
+        <div class="storage-bar"><div class="storage-fill"></div></div>
+        <div class="storage-row"><span>📚 Lectura</span><span>68 MB</span></div>
+        <div class="storage-row"><span>🔢 Matemáticas</span><span>54 MB</span></div>
+        <div class="storage-row"><span>📊 Reportes</span><span>20 MB</span></div>
+        <button class="storage-btn">Liberar contenido descargado</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

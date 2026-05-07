@@ -45,7 +45,7 @@ export default function Navbar() {
                 Ventajas
               </a>
               <a
-                href="https://www.figma.com/proto/AGPLdEpZ7l5WJv97JaplFQ/ODS-4---SmartStudy-Transit?node-id=173-10&t=zktss5rjYJe3w3HA-9&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=173%3A10&show-proto-sidebar=1"
+                href="/prototipo/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-600 hover:text-blue-600 transition-colors font-medium"
@@ -108,13 +108,13 @@ export default function Navbar() {
                   Ventajas
                 </a>
                 <a
-                  href="https://www.figma.com/proto/AGPLdEpZ7l5WJv97JaplFQ/ODS-4---SmartStudy-Transit?node-id=173-10&t=zktss5rjYJe3w3HA-9&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=173%3A10&show-proto-sidebar=1"
+                  href="/prototipo/"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
                   className="block text-slate-600 hover:text-blue-600 font-medium py-2"
                 >
-                  prototipoo
+                  Prototipo
                 </a>
                 <button
                   onClick={() => {

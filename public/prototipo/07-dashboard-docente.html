@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>EduAdapta – Dashboard Docente</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #F4F1EE; --orange: #E8611A; --orange-light: #F9D4B8; --orange-mid: #F4A261; --green: #2A6049; --green-light: #C8E6DA; --purple: #5B4B8A; --purple-light: #E0D9F3; --yellow: #D4A017; --yellow-light: #FEF6D6; --red: #D94040; --red-light: #FDDCDC; --text: #1A1208; --text-mid: #5C4A2A; --text-soft: #9C8060; --white: #FFFFFF; --radius: 20px; }
+  html, body { width: 390px; height: 844px; overflow: hidden; background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+  .screen { width: 390px; height: 844px; display: flex; flex-direction: column; overflow-y: auto; background: var(--bg); }
+  .header { background: white; padding: 52px 28px 20px; flex-shrink: 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .teacher-info { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 46px; height: 46px; border-radius: 14px; background: var(--purple); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: white; font-family: 'Fraunces', serif; }
+  .teacher-name { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; color: var(--text); }
+  .teacher-role { font-size: 12px; color: var(--text-soft); font-weight: 500; }
+  .sync-chip { display: flex; align-items: center; gap: 5px; background: var(--green-light); border-radius: 10px; padding: 5px 10px; font-size: 11px; font-weight: 600; color: var(--green); }
+  .sync-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+  .sem-header { font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 8px; padding-left: 2px; }
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .stat-card { padding: 14px 10px 10px; border-radius: 14px; text-align: center; position: relative; }
+  .stat-card.sem-green { background: var(--green-light); }
+  .stat-card.sem-yellow { background: var(--yellow-light); }
+  .stat-card.sem-red { background: var(--red-light); }
+  .sem-dot-stat { position: absolute; top: 8px; right: 8px; width: 9px; height: 9px; border-radius: 50%; box-shadow: 0 0 0 3px rgba(255,255,255,0.5); }
+  .sem-green .sem-dot-stat { background: var(--green); }
+  .sem-yellow .sem-dot-stat { background: var(--yellow); }
+  .sem-red .sem-dot-stat { background: var(--red); }
+  .stat-num { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; display: block; line-height: 1; margin-bottom: 4px; }
+  .sem-green .stat-num { color: var(--green); }
+  .sem-yellow .stat-num { color: #8B6914; }
+  .sem-red .stat-num { color: var(--red); }
+  .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .sem-green .stat-label { color: var(--green); }
+  .sem-yellow .stat-label { color: #8B6914; }
+  .sem-red .stat-label { color: var(--red); }
+  .section { padding: 20px 28px 0; flex-shrink: 0; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .section-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; color: var(--text); }
+  .section-link { font-size: 12px; color: var(--orange); font-weight: 600; cursor: pointer; }
+  .alert-card { background: var(--red-light); border-radius: 16px; padding: 16px 18px; margin-bottom: 10px; border-left: 4px solid var(--red); display: flex; align-items: flex-start; gap: 12px; }
+  .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .alert-text { flex: 1; }
+  .alert-title { font-size: 13px; font-weight: 700; color: var(--red); margin-bottom: 2px; }
+  .alert-desc { font-size: 12px; color: #8B3030; line-height: 1.4; }
+  .alert-btn { font-size: 11px; font-weight: 700; color: var(--red); background: rgba(217,64,64,0.12); border: none; border-radius: 8px; padding: 4px 10px; cursor: pointer; white-space: nowrap; flex-shrink: 0; align-self: center; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .alert-card.preventive { background: var(--yellow-light); border-left-color: var(--yellow); }
+  .alert-card.preventive .alert-title { color: #8B6914; }
+  .alert-card.preventive .alert-desc { color: #6B5410; }
+  .alert-card.preventive .alert-btn { color: #8B6914; background: rgba(212,160,23,0.18); }
+  .preventive-tag { display: inline-block; font-size: 9px; font-weight: 700; background: rgba(212,160,23,0.25); color: #8B6914; padding: 1px 6px; border-radius: 4px; letter-spacing: 0.04em; margin-left: 6px; vertical-align: middle; }
+  .student-item { background: white; border-radius: 16px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  .s-avatar { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; font-family: 'Fraunces', serif; flex-shrink: 0; }
+  .s-info { flex: 1; min-width: 0; }
+  .s-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .s-progress-row { display: flex; align-items: center; gap: 8px; }
+  .s-track { flex: 1; height: 5px; background: rgba(0,0,0,0.07); border-radius: 3px; overflow: hidden; }
+  .s-fill { height: 100%; border-radius: 3px; }
+  .s-pct { font-size: 11px; font-weight: 600; color: var(--text-soft); white-space: nowrap; }
+  .s-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0; }
+  .group-card { background: var(--purple); border-radius: 18px; padding: 18px 20px; margin: 0 28px; position: relative; overflow: hidden; }
+  .group-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+  .group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.65); margin-bottom: 6px; }
+  .group-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 14px; }
+  .group-stats-row { display: flex; gap: 20px; }
+  .g-stat { display: flex; flex-direction: column; gap: 2px; }
+  .g-num { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: white; line-height: 1; }
+  .g-label { font-size: 10px; color: rgba(255,255,255,0.65); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .g-divider { width: 1px; background: rgba(255,255,255,0.15); align-self: stretch; }
+  .bottom-nav { margin-top: auto; background: white; border-top: 1px solid rgba(0,0,0,0.07); display: flex; padding: 10px 0 28px; flex-shrink: 0; }
+  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; padding: 6px 0; }
+  .nav-icon { font-size: 20px; }
+  .nav-label { font-size: 10px; font-weight: 600; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+  .nav-item.active .nav-label { color: var(--purple); }
+  .nav-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--purple); display: none; }
+  .nav-item.active .nav-dot { display: block; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="header">
+    <div class="header-row">
+      <div class="teacher-info"><div class="avatar">MG</div><div><div class="teacher-name">Mtra. González</div><div class="teacher-role">3°, 4° y 5° · Multigrado · 18 alumnos</div></div></div>
+      <div class="sync-chip"><div class="sync-dot"></div>Offline</div>
+    </div>
+    <p class="sem-header">📍 Semáforo del grupo · hoy</p>
+    <div class="stats-row">
+      <div class="stat-card sem-green"><span class="sem-dot-stat"></span><span class="stat-num">11</span><span class="stat-label">Avanzando</span></div>
+      <div class="stat-card sem-yellow"><span class="sem-dot-stat"></span><span class="stat-num">3</span><span class="stat-label">Preventivo</span></div>
+      <div class="stat-card sem-red"><span class="sem-dot-stat"></span><span class="stat-num">4</span><span class="stat-label">Rezago</span></div>
+    </div>
+  </div>
+  <div style="padding: 20px 0 0;">
+    <div class="group-card">
+      <div class="group-label">Mi grupo multigrado</div>
+      <div class="group-name">3°, 4° y 5° Grado 📚</div>
+      <div class="group-stats-row"><div class="g-stat"><span class="g-num">71%</span><span class="g-label">Promedio lectura</span></div><div class="g-divider"></div><div class="g-stat"><span class="g-num">58%</span><span class="g-label">Matemáticas</span></div><div class="g-divider"></div><div class="g-stat"><span class="g-num">+12%</span><span class="g-label">Este mes</span></div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-title">⚠️ Requieren atención</span><span class="section-link">Ver todos</span></div>
+    <div class="alert-card"><span class="alert-icon">🔴</span><div class="alert-text"><div class="alert-title">Carlos M. — Sin actividad 5 días</div><div class="alert-desc">Nivel lectura: Básico 1. No completó diagnóstico de matemáticas.</div></div><button class="alert-btn">Ver</button></div>
+    <div class="alert-card preventive"><span class="alert-icon">🟡</span><div class="alert-text"><div class="alert-title">Ana L. — Empieza a fallar <span class="preventive-tag">Preventivo</span></div><div class="alert-desc">Bajó del 78% al 64% en lectura esta semana. Aún no es rezago, pero se está estancando en el módulo 2.</div></div><button class="alert-btn">Ver</button></div>
+    <div class="alert-card preventive"><span class="alert-icon">🟡</span><div class="alert-text"><div class="alert-title">Pedro S. — 2 días sin practicar <span class="preventive-tag">Preventivo</span></div><div class="alert-desc">Su racha bajó de 9 a 0. Suele descuidar antes de bajar de nivel.</div></div><button class="alert-btn">Ver</button></div>
+  </div>
+  <div class="section" style="padding-bottom:16px;">
+    <div class="section-header"><span class="section-title">Alumnos destacados</span><span class="section-link">Ver grupo</span></div>
+    <div class="student-item"><div class="s-avatar" style="background:var(--orange-light);color:var(--orange);">MR</div><div class="s-info"><div class="s-name">María Rodríguez · 3°</div><div class="s-progress-row"><div class="s-track"><div class="s-fill" style="background:var(--green);width:82%;"></div></div><span class="s-pct">82%</span></div></div><span class="s-badge" style="background:var(--green-light);color:var(--green);">Avanzado</span></div>
+    <div class="student-item"><div class="s-avatar" style="background:var(--purple-light);color:var(--purple);">JA</div><div class="s-info"><div class="s-name">Juan Arellano · 4°</div><div class="s-progress-row"><div class="s-track"><div class="s-fill" style="background:var(--orange);width:67%;"></div></div><span class="s-pct">67%</span></div></div><span class="s-badge" style="background:var(--orange-light);color:var(--orange);">En camino</span></div>
+    <div class="student-item"><div class="s-avatar" style="background:var(--green-light);color:var(--green);">SL</div><div class="s-info"><div class="s-name">Sofía Luna · 5°</div><div class="s-progress-row"><div class="s-track"><div class="s-fill" style="background:var(--orange);width:54%;"></div></div><span class="s-pct">54%</span></div></div><span class="s-badge" style="background:var(--orange-light);color:var(--orange);">En camino</span></div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item active"><span class="nav-icon">🏠</span><span class="nav-label">Inicio</span><div class="nav-dot"></div></div>
+    <div class="nav-item"><span class="nav-icon">👥</span><span class="nav-label">Grupo</span><div class="nav-dot"></div></div>
+    <div class="nav-item"><span class="nav-icon">📊</span><span class="nav-label">Reportes</span><div class="nav-dot"></div></div>
+    <div class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-label">Ajustes</span><div class="nav-dot"></div></div>
+  </div>
+</div>
+</body>
+</html>
