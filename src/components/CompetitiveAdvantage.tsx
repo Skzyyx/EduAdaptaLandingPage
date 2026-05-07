@@ -60,7 +60,8 @@ export default function CompetitiveAdvantage() {
             <ul className="space-y-5">
               {[
                 "Alineado a los planes y programas de la SEP.",
-                "Reconoce regionalismos y contexto cultural mexicano.",
+                "Contenidos contextualizados al entorno mexicano, con hoja de ruta hacia lenguas originarias (náhuatl, maya y mixteco).",
+                "Reconoce regionalismos y la diversidad cultural del país.",
                 "Optimizado para hardware de baja gama (tablets gubernamentales).",
                 "Actualizaciones vía USB o conexión esporádica."
               ].map((item, i) => (

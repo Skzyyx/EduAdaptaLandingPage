@@ -5,7 +5,10 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
+import Installation from "@/components/Installation";
+import Audiences from "@/components/Audiences";
 import CompetitiveAdvantage from "@/components/CompetitiveAdvantage";
+import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
 import DemoModal from "@/components/ui/DemoModal";
 import { Toaster } from "sonner";
@@ -21,7 +24,10 @@ export default function Home() {
         <Hero />
         <Problem />
         <Solution />
+        <Installation />
+        <Audiences />
         <CompetitiveAdvantage />
+        <Pricing />
         {/* CTA Final */}
         <section className="bg-blue-600 py-20">
           <div className="max-w-4xl mx-auto px-4 text-center">
