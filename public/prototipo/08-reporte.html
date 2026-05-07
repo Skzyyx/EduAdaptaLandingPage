@@ -67,7 +67,7 @@
 <body>
 <div class="screen">
   <div class="header">
-    <div class="header-top"><button class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></button><span class="header-title">Reporte de progreso</span><button class="share-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    <div class="header-top"><button class="back-btn" data-goto="07-dashboard-docente.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></button><span class="header-title">Reporte de progreso</span><button class="share-btn" data-goto="09-exportar.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
     <div class="student-profile"><div class="student-avatar">MR</div><div class="student-info"><div class="student-name">María Rodríguez</div><div class="student-meta">3° A · Nivel 3 · 420 XP</div></div><div class="overall-score"><span class="score-big">B+</span><span class="score-label">Promedio</span></div></div>
   </div>
   <div class="period-tabs"><button class="period-tab">Semana</button><button class="period-tab active">Mes</button><button class="period-tab">Bimestre</button></div>
@@ -88,8 +88,9 @@
       <div class="comp-row"><span class="comp-emoji">📝</span><div class="comp-info"><div class="comp-name">Vocabulario en contexto</div><div class="comp-track"><div class="comp-fill" style="background:var(--orange-mid);width:71%;"></div></div></div><span class="comp-pct" style="color:var(--orange-mid);">71%</span></div>
       <div class="comp-row"><span class="comp-emoji">✨</span><div class="comp-info"><div class="comp-name">Comprensión crítica</div><div class="comp-track"><div class="comp-fill" style="background:var(--purple);width:40%;"></div></div></div><span class="comp-pct" style="color:var(--purple);">40%</span></div>
     </div>
-    <div class="rec-card"><div class="rec-label">🤖 Recomendación adaptativa</div><div class="rec-text">María está lista para el siguiente nivel en comprensión literal. Se sugiere reforzar la inferencia esta semana.</div><button class="rec-btn">Ver actividades sugeridas →</button></div>
+    <div class="rec-card"><div class="rec-label">🤖 Recomendación adaptativa</div><div class="rec-text">María está lista para el siguiente nivel en comprensión literal. Se sugiere reforzar la inferencia esta semana.</div><button class="rec-btn" data-goto="06-lectura.html">Ver actividades sugeridas →</button></div>
   </div>
 </div>
+<script src="proto-nav.js"></script>
 </body>
 </html>

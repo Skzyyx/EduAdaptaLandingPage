@@ -34,6 +34,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif
 .ctrl-btn:disabled{opacity:0.3;cursor:not-allowed}
 .ctrl-counter{font-size:13px;color:rgba(255,255,255,0.7);min-width:80px;text-align:center;font-weight:600}
 .screen-title{margin-top:14px;font-size:13px;color:rgba(255,255,255,0.6);text-align:center}
+.hotspots-toggle{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:12px;color:rgba(255,255,255,0.7);cursor:pointer;user-select:none;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);transition:background .15s}
+.hotspots-toggle:hover{background:rgba(255,255,255,0.08)}
+.hotspots-toggle input{accent-color:#E8611A;cursor:pointer}
+.hotspots-toggle.active{color:#fff;background:rgba(232,97,26,0.15);border-color:rgba(232,97,26,0.4)}
 @media (max-width:880px){
   .layout{grid-template-columns:1fr}
   .sidebar{display:none}
@@ -48,7 +52,7 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif
 <body>
 <div class="topbar">
   <div class="brand">Edu<span>Adapta</span> · Prototipo</div>
-  <span class="share-tip">↔ Usa las flechas del teclado para navegar</span>
+  <span class="share-tip">↔ Flechas del teclado · 👆 Click en botones de la pantalla</span>
   <div class="topbar-meta">12 pantallas · 100% offline · v1</div>
 </div>
 <div class="layout">
@@ -80,6 +84,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif
       <button class="ctrl-btn" id="next-btn" aria-label="Siguiente">›</button>
     </div>
     <div class="screen-title" id="screen-title">1 · Splash / Bienvenida</div>
+    <label class="hotspots-toggle" id="hotspots-toggle">
+      <input type="checkbox" id="hotspots-checkbox">
+      <span>Mostrar zonas clickables</span>
+    </label>
   </div>
 </div>
 <script>
@@ -110,6 +118,32 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft')go(current-1);
   if(e.key==='ArrowRight')go(current+1);
 });
+
+// Navegación tipo Figma: pantallas en el iframe envían postMessage con la
+// pantalla destino. Encontramos el índice por nombre de archivo y navegamos.
+function gotoBySrc(src){
+  if(!src) return;
+  const target=src.split('/').pop().split('?')[0].split('#')[0];
+  for(let i=0;i<total;i++){
+    if((links[i].dataset.src||'').split('/').pop()===target){go(i);return}
+  }
+}
+window.addEventListener('message',e=>{
+  const d=e.data;
+  if(!d||typeof d!=='object') return;
+  if(d.type==='eduadapta-goto') gotoBySrc(d.src);
+});
+
+// Toggle "Mostrar hotspots": resalta zonas clickables dentro del iframe.
+const hotspotsToggle=document.getElementById('hotspots-toggle');
+const hotspotsCheckbox=document.getElementById('hotspots-checkbox');
+function broadcastHotspots(value){
+  hotspotsToggle.classList.toggle('active',value);
+  try{iframe.contentWindow&&iframe.contentWindow.postMessage({type:'eduadapta-show-hotspots',value:value},'*')}catch(_){}
+}
+hotspotsCheckbox.addEventListener('change',()=>broadcastHotspots(hotspotsCheckbox.checked));
+iframe.addEventListener('load',()=>{ if(hotspotsCheckbox.checked) broadcastHotspots(true); });
+
 const hashIdx=parseInt(location.hash.replace('#',''),10);
 go(isNaN(hashIdx)?0:Math.max(0,Math.min(total-1,hashIdx-1)));
 </script>
