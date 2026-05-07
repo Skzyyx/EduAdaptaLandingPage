@@ -21,13 +21,10 @@
   .role-card:active { transform: scale(0.97); }
   .role-card.alumno { background: var(--orange); color: white; }
   .role-card.docente { background: var(--green); color: white; }
-  .role-card.director { background: var(--purple); color: white; }
-  .role-card.padre { background: white; border: 1.5px solid rgba(0,0,0,0.1); color: var(--text); }
   .role-card::before { content: ''; position: absolute; top: -16px; right: -16px; width: 70px; height: 70px; border-radius: 50%; background: rgba(255,255,255,0.12); }
   .role-emoji { font-size: 32px; display: block; margin-bottom: 10px; }
   .role-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; line-height: 1.2; display: block; }
   .role-desc { font-size: 11px; font-weight: 500; opacity: 0.75; margin-top: 3px; display: block; }
-  .role-card.padre .role-desc { color: var(--text-soft); }
   .role-card.selected::after { content: '✓'; position: absolute; top: 12px; right: 14px; width: 22px; height: 22px; background: rgba(255,255,255,0.25); border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: white; }
   .divider-row { display: flex; align-items: center; gap: 12px; padding: 24px 28px 0; }
   .divider-line { flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
@@ -56,8 +53,6 @@
     <div class="roles-grid">
       <div class="role-card alumno selected" data-goto="03-diagnostico.html"><span class="role-emoji">🎒</span><span class="role-name">Alumno</span><span class="role-desc">6 a 12 años</span></div>
       <div class="role-card docente" data-goto="07-dashboard-docente.html"><span class="role-emoji">📋</span><span class="role-name">Docente</span><span class="role-desc">Ver mi grupo</span></div>
-      <div class="role-card director" data-goto="12-vista-escuela.html"><span class="role-emoji">🏫</span><span class="role-name">Director</span><span class="role-desc">Reportes</span></div>
-      <div class="role-card padre" data-goto="08-reporte.html"><span class="role-emoji">👨‍👧</span><span class="role-name">Padre</span><span class="role-desc">Ver progreso</span></div>
     </div>
   </div>
   <div class="divider-row"><div class="divider-line"></div><span class="divider-text">Ingresar como alumno</span><div class="divider-line"></div></div>
